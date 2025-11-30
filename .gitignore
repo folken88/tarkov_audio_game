@@ -1,0 +1,9 @@
+# Tarkov Sound Game Gitignore
+
+# Audio files (may be large)
+public/audio/
+
+# Configuration files
+public/config.js
+
+

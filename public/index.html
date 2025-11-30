@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
+  <meta name="theme-color" content="#05070d" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>Tarkov Weapon Sound Trainer - Folkengames</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="bg-image" role="presentation"></div>
+  <div class="bg-overlay" role="presentation"></div>
+
+  <main class="shell">
+    <header class="hero">
+      <h1>Tarkov Weapon Sound Trainer</h1>
+      <p class="hero-subtitle">Learn to identify weapons by their sound</p>
+    </header>
+
+    <section class="game-section">
+      <div class="game-stats">
+        <div class="stat-item">
+          <span class="stat-label">Round</span>
+          <span id="round-number" class="stat-value">1</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Score</span>
+          <span id="score" class="stat-value">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Streak</span>
+          <span id="streak" class="stat-value">0</span>
+        </div>
+      </div>
+
+      <div class="audio-player-section">
+        <div class="audio-controls">
+          <button id="btn-play" class="glass-button glass-button--large">
+            <span class="button-icon">▶</span>
+            Play Sound
+          </button>
+        </div>
+        <div class="audio-info">
+          <p id="audio-info-text">Click "Play Sound" to start the round</p>
+          <div id="audio-effects-container" class="audio-effects-container" style="display: none; margin-top: 0.75rem;">
+            <label class="audio-effects-toggle">
+              <input type="checkbox" id="audio-effects-enabled">
+              <span>Enable audio effects</span>
+            </label>
+            <div class="audio-effects-options" id="audio-effects-options" style="margin-top: 0.5rem; display: none;">
+              <div class="audio-effect-group">
+                <label class="audio-effect-label">Distance:</label>
+                <div class="audio-effect-radios">
+                  <label class="audio-effect-radio">
+                    <input type="radio" name="distance" id="distance-close" value="close">
+                    <span>Close</span>
+                  </label>
+                  <label class="audio-effect-radio">
+                    <input type="radio" name="distance" id="distance-medium" value="medium" checked>
+                    <span>Medium</span>
+                  </label>
+                  <label class="audio-effect-radio">
+                    <input type="radio" name="distance" id="distance-far" value="far">
+                    <span>Far</span>
+                  </label>
+                </div>
+              </div>
+              <div class="audio-effect-group" style="margin-top: 0.5rem;">
+                <label class="audio-effect-checkbox">
+                  <input type="checkbox" id="helmet-muffled">
+                  <span>Wearing helmet (muffled)</span>
+                </label>
+              </div>
+              <div class="audio-effect-group" style="margin-top: 0.5rem;">
+                <label class="audio-effect-checkbox">
+                  <input type="checkbox" id="through-wall">
+                  <span>Through wall</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <audio id="audio-player" preload="auto"></audio>
+      </div>
+
+      <div class="choices-section">
+        <h2>What weapon is this?</h2>
+        <div id="choices-grid" class="choices-grid">
+          <!-- Choices will be populated by JavaScript -->
+        </div>
+      </div>
+
+      <div id="result-message" class="result-message"></div>
+    </section>
+
+    <section class="controls-section">
+      <div class="control-row">
+        <button id="btn-next-round" class="glass-button" disabled>Next Round</button>
+        <button id="btn-new-game" class="glass-button glass-button--secondary">New Game</button>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p class="footer-text">
+        Weapon data from <a href="https://escapefromtarkov.fandom.com/wiki/Weapons" target="_blank" rel="noopener">Escape from Tarkov Wiki</a>
+      </p>
+      <div style="margin-top: 1rem;">
+        <a href="gallery.html" class="glass-button glass-button--secondary">
+          View Gallery
+        </a>
+      </div>
+    </footer>
+  </main>
+
+  <script src="js/weapons.js" type="module"></script>
+  <script src="js/game.js?v=20250101" type="module"></script>
+</body>
+</html>
+
