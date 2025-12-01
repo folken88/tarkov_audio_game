@@ -10,43 +10,62 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/styles.css?v=20250130seedhighscore" />
 </head>
 <body>
+  <!-- Skip links for keyboard navigation -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <a href="#game-controls" class="skip-link">Skip to game controls</a>
+  <a href="#weapon-choices" class="skip-link">Skip to weapon choices</a>
+
   <div class="bg-image" role="presentation"></div>
   <div class="bg-overlay" role="presentation"></div>
 
-  <main class="shell">
+  <!-- Screen reader announcements -->
+  <div id="sr-announcements" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+  <div id="sr-alerts" class="sr-only" role="alert" aria-live="assertive" aria-atomic="true"></div>
+
+  <main id="main-content" class="shell">
     <header class="hero">
       <h1>Tarkov Weapon Sound Trainer</h1>
       <p class="hero-subtitle">Learn to identify weapons by their sound</p>
     </header>
 
-    <section class="game-section">
-      <div class="game-stats">
+    <section class="game-section" aria-labelledby="game-heading">
+      <h2 id="game-heading" class="sr-only">Game Status and Controls</h2>
+      
+      <div class="game-stats" role="group" aria-label="Game statistics">
         <div class="stat-item">
           <span class="stat-label">Round</span>
-          <span id="round-number" class="stat-value">1</span>
+          <span id="round-number" class="stat-value" aria-label="Current round">1</span>
         </div>
         <div class="stat-item">
           <span class="stat-label">Score</span>
-          <span id="score" class="stat-value">0</span>
+          <span id="score" class="stat-value" aria-label="Current score">0</span>
         </div>
         <div class="stat-item">
           <span class="stat-label">Streak</span>
-          <span id="streak" class="stat-value">0</span>
+          <span id="streak" class="stat-value" aria-label="Current streak">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Right/Wrong</span>
+          <span id="right-wrong" class="stat-value" aria-label="Correct and incorrect answers">0/0</span>
         </div>
       </div>
 
       <div class="audio-player-section">
-        <div class="audio-controls">
-          <button id="btn-play" class="glass-button glass-button--large">
-            <span class="button-icon">▶</span>
+        <div id="game-controls" class="audio-controls" role="group" aria-label="Audio and game controls">
+          <button id="btn-play" class="glass-button glass-button--large" aria-label="Play weapon sound (Spacebar or P key)">
+            <span class="button-icon" aria-hidden="true">▶</span>
             Play Sound
           </button>
+          <div class="game-controls">
+            <button id="btn-next-round" class="glass-button" disabled aria-label="Skip to next round (S key)">Next Round</button>
+            <button id="btn-new-game" class="glass-button glass-button--secondary" aria-label="Start a new game (N key)">New Game</button>
+          </div>
         </div>
         <div class="audio-info">
-          <p id="audio-info-text">Click "Play Sound" to start the round</p>
+          <p id="audio-info-text" role="status" aria-live="polite">Click "Play Sound" to start the round</p>
           <div id="audio-effects-container" class="audio-effects-container" style="display: none; margin-top: 0.75rem;">
             <label class="audio-effects-toggle">
               <input type="checkbox" id="audio-effects-enabled">
@@ -89,20 +108,55 @@
       </div>
 
       <div class="choices-section">
-        <h2>What weapon is this?</h2>
-        <div id="choices-grid" class="choices-grid">
+        <h2 id="weapon-choices">What weapon is this?</h2>
+        <p class="sr-only">Press keys 1 through 8 to select a weapon, or use Tab to navigate and Enter to select</p>
+        <div id="choices-grid" class="choices-grid" role="group" aria-labelledby="weapon-choices">
           <!-- Choices will be populated by JavaScript -->
         </div>
       </div>
 
-      <div id="result-message" class="result-message"></div>
+      <div id="result-message" class="result-message" role="status" aria-live="polite" aria-atomic="true"></div>
     </section>
 
-    <section class="controls-section">
-      <div class="control-row">
-        <button id="btn-next-round" class="glass-button" disabled>Next Round</button>
-        <button id="btn-new-game" class="glass-button glass-button--secondary">New Game</button>
+    <!-- Points Log -->
+    <section class="points-log-section" aria-labelledby="points-log-header">
+      <h2 id="points-log-header" class="points-log-header">Round History</h2>
+      <div id="points-log" class="points-log" role="log" aria-live="polite">
+        <!-- Points log entries will be added here -->
       </div>
+    </section>
+
+    <!-- High Scores -->
+    <section class="highscores-section" aria-labelledby="highscores-header">
+      <h2 id="highscores-header" class="highscores-header"><span aria-label="Trophy">🏆</span> Top 10 High Scores</h2>
+      <div id="highscores-list" class="highscores-list" role="list">
+        <!-- High scores will be loaded here -->
+      </div>
+    </section>
+
+    <!-- Seed Control for Competitive Play -->
+    <section class="seed-section" aria-labelledby="seed-header">
+      <details class="seed-details">
+        <summary class="seed-summary">Advanced: Competitive Seed</summary>
+        <div class="seed-control">
+          <label for="game-seed" class="seed-label">Seed:</label>
+          <input 
+            type="text" 
+            id="game-seed" 
+            class="seed-input" 
+            placeholder="auto"
+            maxlength="30"
+            aria-label="Game seed for competitive play. Enter a seed to match another player's game."
+            title="Enter a seed to play the same weapon sequence as another player"
+          />
+          <button id="btn-copy-seed" class="seed-button" aria-label="Copy seed to clipboard" title="Copy seed">
+            📋
+          </button>
+          <button id="btn-new-seed" class="seed-button" aria-label="Generate new random seed" title="New random seed">
+            🎲
+          </button>
+        </div>
+      </details>
     </section>
 
     <footer class="footer">
@@ -117,8 +171,8 @@
     </footer>
   </main>
 
-  <script src="js/weapons.js" type="module"></script>
-  <script src="js/game.js?v=20250101" type="module"></script>
+  <script src="js/weapons.js?v=20250130seedhighscore" type="module"></script>
+  <script src="js/game.js?v=20250130seedhighscore" type="module"></script>
 </body>
 </html>
 
