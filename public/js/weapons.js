@@ -18,11 +18,13 @@ export const WEAPONS = [
   { id: 'sag-ak-short', name: 'SAG AK Short' },
   { id: 'sks', name: 'SKS' },
   { id: 'sr-3m', name: 'SR-3M' },
+  { id: 'vpo-101', name: 'VPO-101 Vepr-Hunter' },
   
   // Assault Rifles (based on Tarkov Wiki)
   { id: 'ak-74', name: 'AK-74' },
   { id: 'ak-74n', name: 'AK-74N' },
   { id: 'ak-74m', name: 'AK-74M' },
+  { id: 'aks-74u', name: 'AKS-74U' },
   { id: 'ak-101', name: 'AK-101' },
   { id: 'ak-102', name: 'AK-102' },
   { id: 'ak-103', name: 'AK-103' },
@@ -39,14 +41,16 @@ export const WEAPONS = [
   { id: 'hk416a5', name: 'HK 416A5' },
   { id: 'sa-58', name: 'SA-58' },
   { id: 'scar-l', name: 'SCAR-L' },
-  { id: 'scar-h', name: 'SCAR-H' },
   { id: 'tx-15', name: 'TX-15 DML' },
   { id: 'ash-12', name: 'ASh-12' },
   { id: 'rd-704', name: 'RD-704' },
   { id: 'mk47', name: 'MK47 Mutant' },
   { id: 'mdr-308', name: 'MDR .308' },
   { id: 'mdr-556', name: 'MDR 5.56x45' },
+  { id: 'mcx-spear', name: 'SIG MCX-SPEAR' },
   { id: 'nl545-gp', name: 'NL545 GP' },
+  { id: 'g36', name: 'G36' },
+  { id: 'aug-a3', name: 'Steyr AUG A3' },
   
   // Bolt-Action Rifles (based on Tarkov Wiki)
   { id: 'mosin', name: 'Mosin-Nagant' },
@@ -59,6 +63,7 @@ export const WEAPONS = [
   { id: 'm700-ultra', name: 'M700 Ultra' },
   { id: 'axmc', name: 'AXMC' },
   { id: 'marlin-mxlr', name: 'Marlin MXLR' },
+  { id: 'sako-trg-m10', name: 'Sako TRG M10' },
   
   // Designated Marksman Rifles (based on Tarkov Wiki)
   { id: 'svd', name: 'SVD' },
@@ -69,21 +74,26 @@ export const WEAPONS = [
   { id: 'm1a-sass', name: 'M1A SASS' },
   { id: 'sr-25', name: 'SR-25' },
   { id: 'rsass', name: 'RSASS' },
+  { id: 'mk-18', name: 'MK-18 .338 LM' },
   
   // Light Machine Guns (based on Tarkov Wiki)
   { id: 'rpk-16', name: 'RPK-16' },
+  { id: 'rpd', name: 'RPD' },
   { id: 'pkp', name: 'PKP' },
   { id: 'pkm', name: 'PKM' },
   { id: 'm249', name: 'M249' },
   { id: 'm240b', name: 'M240B' },
+  { id: 'm60e6', name: 'M60E6' },
   
   // Shotguns (based on Tarkov Wiki)
   { id: 'saiga-12k', name: 'Saiga-12K' },
+  { id: 'aa-12', name: 'AA-12' },
   { id: 'mp-153', name: 'MP-153' },
   { id: 'mp-133', name: 'MP-133' },
   { id: 'mp-155', name: 'MP-155' },
   { id: 'mp-18', name: 'MP-18' },
   { id: 'toz-106', name: 'TOZ-106' },
+  { id: 'ks-23m', name: 'KS-23M' },
   { id: 'remington-870', name: 'Remington 870' },
   { id: 'm1014', name: 'M1014' },
   { id: 'm590a1', name: 'M590A1' },
@@ -94,6 +104,7 @@ export const WEAPONS = [
   { id: 'mp5sd', name: 'MP5SD' },
   { id: 'mp7', name: 'MP7' },
   { id: 'mp9', name: 'MP9' },
+  { id: 'mpx', name: 'SIG MPX' },
   { id: 'pp-19-01', name: 'PP-19-01 Vityaz' },
   { id: 'pp-91', name: 'PP-91 Kedr' },
   { id: 'pp-91-01', name: 'PP-91-01 Kedr-B' },
@@ -119,6 +130,10 @@ export const WEAPONS = [
   
   // Revolvers (based on Tarkov Wiki)
   { id: 'rsh12', name: 'RSh-12' },
+  { id: 'rhino-50ds', name: 'Chiappa Rhino 50DS' },
+  
+  // Grenade Launchers (based on Tarkov Wiki)
+  { id: 'fn40gl', name: 'FN40GL Mk2' },
   
   // Grenades (based on Tarkov Wiki)
   { id: 'f-1', name: 'F-1 Grenade' },
@@ -174,5 +189,19 @@ export function getRandomWeapons(count, excludeIds = []) {
   const available = WEAPONS.filter(w => !excludeIds.includes(w.id));
   const shuffled = [...available].sort(() => 0.5 - Math.random());
   return shuffled.slice(0, count);
+}
+
+/**
+ * Get weapon image URL based on audio file variant
+ * Some weapons have different images for suppressed vs loud variants
+ */
+export function getWeaponImageUrlForAudio(weaponId, weaponName, audioFile = '') {
+  // Special case: M4A1 has different image for suppressed variant
+  if (weaponId === 'm4a1' && audioFile.includes('silenced')) {
+    return 'weapons/m4a1/M4A1-Suppressed.png';
+  }
+  
+  // Default to standard image
+  return getWeaponImageUrl(weaponId, weaponName);
 }
 

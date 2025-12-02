@@ -1,4 +1,17 @@
 services:
+  # Node.js backend for high scores API
+  backend:
+    build: .
+    container_name: tarkov-sound-backend
+    volumes:
+      - ./highscores.json:/app/highscores.json
+    environment:
+      - PORT=3000
+    restart: unless-stopped
+    networks:
+      - tarkov-network
+
+  # Nginx frontend
   tarkov-sound:
     image: nginx:alpine
     container_name: tarkov-sound-game
@@ -7,6 +20,13 @@ services:
     volumes:
       - ./public:/usr/share/nginx/html:ro
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - backend
     restart: unless-stopped
+    networks:
+      - tarkov-network
 
+networks:
+  tarkov-network:
+    driver: bridge
 

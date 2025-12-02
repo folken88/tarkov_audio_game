@@ -1,0 +1,12 @@
+node_modules
+npm-debug.log
+.git
+.gitignore
+README.md
+docs
+acquisition
+public
+nginx.conf
+docker-compose.yml
+.dockerignore
+

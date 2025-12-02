@@ -1,63 +1,59 @@
-﻿adar-2-15
-sag-ak-short
-ak-74n
-ak-74m
-ak-101
-ak-102
-ak-104
-ak-105
-ak-12
-ak-15
-akm
-akmn
-akms
-akmsn
-hk416a5
-sa-58
-scar-l
-tx-15
-rd-704
-mdr-556
-m700-tac
-m700-sass
-m700-ultra
-axmc
-svds
-vss
-as-val
-m1a
-m1a-sass
-rpk-16
-pkp
-pkm
-m249
-m240b
-mp-133
-mp-155
-mp-18
-toz-106
-remington-870
-m1014
-m590a1
-mp5
-mp5k
-mp5sd
-mp7
-mp9
-pp-19-01
-pp-91
-pp-91-01
-ppsh-41
-ump45
-saiga-9
-stm-9
-sr-2m
-pm
-p226
-glock-17
-m9a3
-m1911a1
-fn57
-apb
-aps
-sr1mp
+﻿WEAPONS MISSING IMAGES
+=====================
+
+Assault Rifles:
+- ak-15
+- hk416a5 ⚠️ HAS AUDIO
+- tx-15
+- mdr-556
+
+Bolt-Action Rifles:
+- m700-tac
+- m700-sass
+- m700-ultra
+
+Designated Marksman Rifles:
+- vss
+- m1a-sass
+
+Light Machine Guns:
+- pkp
+- pkm
+- m249
+- m240b
+
+Shotguns:
+- mp-18
+- toz-106
+- m1014
+
+Submachine Guns:
+- mp5sd
+- pp-19-01
+- pp-91
+- ump45
+- saiga-9
+
+Pistols:
+- pm ⚠️ HAS AUDIO
+- glock-17
+- m1911a1
+
+Grenades:
+- f-1 ⚠️ HAS AUDIO
+- rgd-5 ⚠️ HAS AUDIO
+- m67 ⚠️ HAS AUDIO
+- flash-grenade ⚠️ HAS AUDIO
+- smoke-grenade ⚠️ HAS AUDIO
+
+Flares:
+- red-flare
+
+PRIORITY (have audio but missing images):
+1. hk416a5
+2. pm
+3. f-1
+4. rgd-5
+5. m67
+6. flash-grenade
+7. smoke-grenade
