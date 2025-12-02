@@ -2,7 +2,7 @@
  * Tarkov Weapon Sound Trainer Game Logic
  */
 
-import { WEAPONS, getRandomWeapon, getRandomWeapons, getWeaponImageUrl, getWeaponImageUrlForAudio } from './weapons.js';
+import { WEAPONS, getRandomWeapon, getRandomWeapons, getWeaponImageUrl, getWeaponImageUrlForAudio, filterAudioBySuppressorStatus } from './weapons.js';
 import { 
   initAudioContext, 
   playAudioWithEffects, 
@@ -591,7 +591,11 @@ function getAvailableAudioFiles(weaponId) {
     'rhino-50ds': ['weapons/rhino-50ds/medium/tarkov_chiappa_rhino_50ds_357_revolver_burst.mp3', 'weapons/rhino-50ds/medium/tarkov_chiappa_rhino_50ds_357_revolver_single_shot.mp3']
   };
   
-  return weaponAudioMap[weaponId] || [];
+  // Get audio files for this weapon
+  const audioFiles = weaponAudioMap[weaponId] || [];
+  
+  // Filter audio files based on weapon's suppressor status to ensure audio matches image
+  return filterAudioBySuppressorStatus(weaponId, audioFiles);
 }
 
 /**

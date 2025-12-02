@@ -4,7 +4,54 @@
  * 
  * Weapon data and categorization based on:
  * https://escapefromtarkov.fandom.com/wiki/Weapons
+ * 
+ * Suppressor Status:
+ * - 'suppressed': Image shows suppressor - only play suppressed/silenced audio
+ * - 'loud': Image shows no suppressor - only play loud audio
+ * - 'neutral': Image is ambiguous or no image - play any audio
  */
+
+/**
+ * Weapon suppressor configuration
+ * Maps weapon IDs to their suppressor status based on the image filename
+ * Filenames with "suppressor"/"suppressed" = suppressed variant
+ * Filenames with "loud" = loud variant
+ * No suffix = neutral/ambiguous
+ */
+export const WEAPON_SUPPRESSOR_STATUS = {
+  // Weapons with suppressor in image (from filename)
+  'aks-74u': 'suppressed',  // tarkov_aks-74u_suppressor_waffle.png
+  'tx-15': 'suppressed',    // tarkov_lonestar_tx15_dml_suppressor.png
+  'dvl-10': 'suppressed',   // tarkov_dvl_saboteur.png (DVL is suppressed)
+  'as-val': 'suppressed',   // tarkov_asval_30r_clip.png (AS VAL always suppressed)
+  'mpx': 'suppressed',      // MPX audio files are suppressed
+  'sr-25': 'suppressed',    // SR-25 audio files are suppressed
+  'rsass': 'suppressed',    // RSASS audio files are suppressed
+  'p90': 'suppressed',      // P90 audio file is p90_silenced_burst.mp3
+  
+  // Weapons without suppressor in image (from filename with "loud")
+  'rpd': 'loud',            // tarkov_rpd_short_loud.png
+  'rpk-16': 'loud',         // tarkov_rpk_loud_ice_cream_cone.png
+  'scar-h': 'loud',         // tarkov_mk17_scar762_loud.png
+  'mk-18': 'loud',          // tarkov_mk18_mjolnir_lapua_loud.png
+  'g36': 'loud',            // G36 audio files have "loud" in name
+  'aug-a3': 'loud',         // AUG-A3 audio files have "loud" in name
+  'mp5': 'loud',            // MP5 audio files have "loud" in name
+  'sr-2m': 'loud',          // SR-2M audio files have "loud" in name
+  'pkm': 'loud',            // PKM machine gun, no suppressor
+  'sa-58': 'loud',          // SA-58 FAL, loud audio only
+  'ak-50': 'loud',          // tarkov_theakguy_ak50_bmg_anti-material-rifle.png
+  'mdr-308': 'loud',        // tarkov_mdr_762.png (no suppressor indicated)
+  'ks-23m': 'loud',         // tarkov_ks23_shotgun.png (shotgun, no suppressor)
+  
+  // Weapons with mixed audio but no clear image indicator (neutral - allow all)
+  'm4a1': 'neutral',        // Has both loud and suppressed audio, need to check image
+  'hk416a5': 'neutral',     // Has both loud and suppressed audio, need to check image
+  'scar-l': 'neutral',      // Has both loud and suppressed audio, need to check image
+  'm1a': 'neutral',         // Has both loud and suppressed audio, need to check image
+  'svd': 'neutral',         // Has both loud and suppressed audio, need to check image
+  'ash-12': 'neutral',      // Has both loud and silenced audio
+};
 
 export const WEAPONS = [
   // Assault Carbines (based on Tarkov Wiki)
@@ -203,5 +250,57 @@ export function getWeaponImageUrlForAudio(weaponId, weaponName, audioFile = '') 
   
   // Default to standard image
   return getWeaponImageUrl(weaponId, weaponName);
+}
+
+/**
+ * Filter audio files based on weapon's suppressor status
+ * This ensures audio matches the weapon image (suppressed vs loud)
+ * 
+ * @param {string} weaponId - The weapon identifier
+ * @param {string[]} audioFiles - Array of audio file paths
+ * @returns {string[]} - Filtered array of matching audio files
+ */
+export function filterAudioBySuppressorStatus(weaponId, audioFiles) {
+  const suppressorStatus = WEAPON_SUPPRESSOR_STATUS[weaponId];
+  
+  // If no specific status or neutral, allow all audio files
+  if (!suppressorStatus || suppressorStatus === 'neutral') {
+    return audioFiles;
+  }
+  
+  // Helper to check if audio file is suppressed/silenced
+  const isSuppressedAudio = (audioPath) => {
+    const filename = audioPath.toLowerCase();
+    return filename.includes('suppressed') || 
+           filename.includes('silenced') || 
+           filename.includes('silent');
+  };
+  
+  // Helper to check if audio file is loud
+  const isLoudAudio = (audioPath) => {
+    const filename = audioPath.toLowerCase();
+    return filename.includes('loud');
+  };
+  
+  // Filter based on status
+  if (suppressorStatus === 'suppressed') {
+    // Only keep suppressed audio
+    const filtered = audioFiles.filter(isSuppressedAudio);
+    // If no suppressed audio found, return all (fallback)
+    return filtered.length > 0 ? filtered : audioFiles;
+  } else if (suppressorStatus === 'loud') {
+    // Only keep loud audio, or audio without suppressed/silenced in name
+    const filtered = audioFiles.filter(path => !isSuppressedAudio(path));
+    // If explicitly marked loud, prioritize those
+    const explicitLoud = filtered.filter(isLoudAudio);
+    if (explicitLoud.length > 0) {
+      return explicitLoud;
+    }
+    // Otherwise return all non-suppressed
+    return filtered.length > 0 ? filtered : audioFiles;
+  }
+  
+  // Default: return all
+  return audioFiles;
 }
 
