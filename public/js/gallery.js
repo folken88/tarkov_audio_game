@@ -115,7 +115,7 @@ async function createWeaponCard(weapon) {
     const img = document.createElement('img');
     img.src = imageUrl; // This is the first working path from checkImageExists
     img.alt = weapon.name;
-    img.className = 'weapon-card-image';
+    // Don't add className to img - the container div already has the styling
     imageContainer.appendChild(img);
   } else {
     imageContainer.classList.add('missing');

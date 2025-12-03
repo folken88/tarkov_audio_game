@@ -86,6 +86,15 @@ body {
   z-index: -2;
 }
 
+/* Gallery page - ensure background is visible at 50% opacity */
+body:has(.gallery-container) .bg-image {
+  opacity: 0.5;
+}
+
+body:has(.gallery-container) .bg-overlay {
+  opacity: 0.6;
+}
+
 .bg-overlay {
   position: fixed;
   inset: 0;
@@ -133,6 +142,8 @@ body {
   border-radius: 20px;
   border: 2px solid transparent;
   transition: background 0.3s ease, border-color 0.3s ease;
+  position: relative;
+  isolation: isolate;
 }
 
 /* Seed Control for Competitive Play */
@@ -275,6 +286,9 @@ body {
   border: 1px solid var(--glass-border);
   box-shadow: 0 24px 46px rgba(7, 12, 22, 0.38);
   backdrop-filter: blur(20px);
+  position: relative;
+  isolation: isolate;
+  z-index: 1;
 }
 
 .stat-item {
@@ -306,6 +320,9 @@ body {
   box-shadow: 0 24px 46px rgba(7, 12, 22, 0.38);
   backdrop-filter: blur(20px);
   text-align: center;
+  position: relative;
+  isolation: isolate;
+  z-index: 1;
 }
 
 .audio-controls {
@@ -437,6 +454,9 @@ body {
   border: 1px solid var(--glass-border);
   box-shadow: 0 24px 46px rgba(7, 12, 22, 0.38);
   backdrop-filter: blur(20px);
+  position: relative;
+  isolation: isolate;
+  z-index: 1;
 }
 
 .choices-section h2 {
@@ -451,6 +471,8 @@ body {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 0.75rem;
+  position: relative;
+  isolation: isolate;
 }
 
 .choice-button {
@@ -477,6 +499,8 @@ body {
   justify-content: flex-end;
   overflow: hidden;
   position: relative;
+  isolation: isolate;
+  z-index: 1;
 }
 
 .choice-button__image {
