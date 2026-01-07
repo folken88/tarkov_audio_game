@@ -81,3 +81,12 @@ These weapons should NEVER show suppressors in images:
 - Images ending in `_loud` = Does NOT show suppressor
 - Neutral images = No suffix, shouldn't clearly show suppressor presence
 
+
+
+
+
+
+
+
+
+

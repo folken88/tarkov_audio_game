@@ -34,3 +34,12 @@ foreach ($weapon in $weapons) {
 
 Write-Host "`nDownload complete!" -ForegroundColor Green
 
+
+
+
+
+
+
+
+
+

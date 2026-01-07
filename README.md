@@ -36,6 +36,11 @@ The easiest way to deploy with full high score functionality:
    ```
 4. **Access the game** at `http://localhost:32082`
 
+**Production Deployment:**  
+The game runs on `frostshox` server via Docker and is accessible at:
+- Domain: https://tarkov.folkengames.com
+- LAN: http://192.168.1.202:32082
+
 This deploys:
 - Nginx frontend serving static files
 - Node.js backend for high scores API

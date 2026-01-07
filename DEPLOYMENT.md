@@ -175,3 +175,12 @@ cp highscores.backup.json highscores.json
 docker-compose restart backend
 ```
 
+
+
+
+
+
+
+
+
+

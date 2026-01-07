@@ -68,3 +68,12 @@ foreach ($weaponId in $weaponPages.Keys) {
 Write-Host ""
 Write-Host "Done!" -ForegroundColor Green
 
+
+
+
+
+
+
+
+
+

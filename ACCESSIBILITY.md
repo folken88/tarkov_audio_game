@@ -151,3 +151,12 @@ Both tones use Web Audio API oscillators and will not interfere with weapon soun
 
 Users experiencing accessibility issues or having suggestions for improvements should report them via the project's issue tracker.
 
+
+
+
+
+
+
+
+
+

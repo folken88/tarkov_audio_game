@@ -311,3 +311,12 @@
 ### Priority 5 - Future 📦
 5. Complete weapons with neither image nor audio (remaining weapons)
 
+
+
+
+
+
+
+
+
+

@@ -61,3 +61,12 @@ Write-Host "3. Copy image address" -ForegroundColor White
 Write-Host "4. Extract the path part (between /images/ and /revision/)" -ForegroundColor White
 Write-Host "5. Add it to the `$imageUrls hashtable above" -ForegroundColor White
 
+
+
+
+
+
+
+
+
+

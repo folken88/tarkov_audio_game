@@ -73,3 +73,12 @@
 - Images are loaded dynamically and checked at runtime
 - The gallery uses the `checkImageExists()` function to verify image availability
 
+
+
+
+
+
+
+
+
+

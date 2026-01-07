@@ -176,3 +176,12 @@ These 3 weapons don't affect gameplay until audio is added.
 ⚠️ **3 weapons would benefit from images** (AA-12, KS-23M, RPD)  
 📝 **Manual image download recommended** due to WebP/automation issues
 
+
+
+
+
+
+
+
+
+

@@ -182,3 +182,12 @@ if ($failedWeapons.Count -gt 0) {
 Write-Host ""
 Write-Host "Script completed!" -ForegroundColor Cyan
 
+
+
+
+
+
+
+
+
+
